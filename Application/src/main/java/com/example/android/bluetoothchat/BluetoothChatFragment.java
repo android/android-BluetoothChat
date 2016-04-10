@@ -364,10 +364,15 @@ public class BluetoothChatFragment extends Fragment {
         // Get the device MAC address
         String address = data.getExtras()
                 .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-        // Get the BluetoothDevice object
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-        // Attempt to connect to the device
-        mChatService.connect(device, secure);
+        // Get the BluetoothDevice object only if the address is valid
+        try {
+            BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+            // Attempt to connect to the device
+            mChatService.connect(device, secure);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Impossible to connect, device address is not valid!");
+            Toast.makeText(this.getContext(), "Device address is not valid!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
