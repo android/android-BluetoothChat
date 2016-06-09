@@ -154,10 +154,12 @@ public class BluetoothChatService {
             mConnectedThread = null;
         }
 
+        // ensure state is set before starting new thread
+        setState(STATE_CONNECTING);
+
         // Start the thread to connect with the given device
         mConnectThread = new ConnectThread(device, secure);
         mConnectThread.start();
-        setState(STATE_CONNECTING);
     }
 
     /**
@@ -192,6 +194,9 @@ public class BluetoothChatService {
             mInsecureAcceptThread = null;
         }
 
+        // ensure state is set before starting new thread
+        setState(STATE_CONNECTED);
+
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
@@ -202,8 +207,6 @@ public class BluetoothChatService {
         bundle.putString(Constants.DEVICE_NAME, device.getName());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-
-        setState(STATE_CONNECTED);
     }
 
     /**
