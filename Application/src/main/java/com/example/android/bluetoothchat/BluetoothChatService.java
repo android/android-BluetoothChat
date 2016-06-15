@@ -267,6 +267,10 @@ public class BluetoothChatService {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
+        mState = STATE_NONE;
+        // Update UI title
+        updateUserInterfaceTitle();
+
         // Start the service over to restart listening mode
         BluetoothChatService.this.start();
     }
@@ -281,6 +285,10 @@ public class BluetoothChatService {
         bundle.putString(Constants.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
+
+        mState = STATE_NONE;
+        // Update UI title
+        updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
         BluetoothChatService.this.start();
