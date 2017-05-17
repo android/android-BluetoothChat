@@ -61,6 +61,7 @@ public class BluetoothChatService {
     private ConnectedThread mConnectedThread;
     private int mState;
     private int mNewState;
+    private boolean mStop;
 
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
@@ -79,6 +80,7 @@ public class BluetoothChatService {
         mState = STATE_NONE;
         mNewState = mState;
         mHandler = handler;
+        mStop = false;
     }
 
     /**
@@ -128,6 +130,7 @@ public class BluetoothChatService {
             mInsecureAcceptThread = new AcceptThread(false);
             mInsecureAcceptThread.start();
         }
+        mStop = false;
         // Update UI title
         updateUserInterfaceTitle();
     }
@@ -234,6 +237,7 @@ public class BluetoothChatService {
             mInsecureAcceptThread = null;
         }
         mState = STATE_NONE;
+        mStop = true;
         // Update UI title
         updateUserInterfaceTitle();
     }
@@ -272,7 +276,8 @@ public class BluetoothChatService {
         updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
-        BluetoothChatService.this.start();
+        if (!mStop)
+            BluetoothChatService.this.start();
     }
 
     /**
@@ -291,7 +296,8 @@ public class BluetoothChatService {
         updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
-        BluetoothChatService.this.start();
+        if (!mStop)
+            BluetoothChatService.this.start();
     }
 
     /**
