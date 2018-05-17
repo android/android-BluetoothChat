@@ -1,4 +1,4 @@
-
+first change
 Android BluetoothChat Sample
 ===================================
 
