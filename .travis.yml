@@ -1,0 +1,7 @@
+language: android
+android:
+  components:
+    - build-tools-27
+    - android-27
+    - add-on
+    - extra
