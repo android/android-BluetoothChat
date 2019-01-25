@@ -1,5 +1,5 @@
 
-Android BluetoothChat Sample
+Android BluetoothChat Sample [![Travis Build Status](https://travis-ci.org/googlesamples/android-BluetoothChat.svg?branch=master)](https://travis-ci.org/googlesamples/android-BluetoothChat)
 ===================================
 
 This sample shows how to implement two-way text chat over Bluetooth between two Android devices, using
